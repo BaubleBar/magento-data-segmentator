@@ -1,7 +1,7 @@
 Magento Data Segmentator  (v1.0.1)
 ==========================
 
-Magento data segmentation allows you to extract tailored sets of data from your Magento database.
+Magento data segmentator allows you to extract tailored sets of data from your Magento database.
 
 Currently script supports data retrieval via customer email patterns and/or back log of (x) days. 
 
