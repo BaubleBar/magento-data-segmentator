@@ -19,12 +19,14 @@ See: http://dev.mysql.com/doc/refman/5.1/en/option-files.html
 Usage
 -----
 
+```bash
 -s name of your Magento database schema
 -e match customers email address, ex: -e '(generic.com|specific.email@domain.com)'
 -d retrieve all customers registered within specified number of days
 -l limit overall result to this number
 -f name of generated data dump
 -r raw mode, the script will output a non-compressed .sql dump
+```
 
 Examples
 -----
