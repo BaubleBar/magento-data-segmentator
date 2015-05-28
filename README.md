@@ -55,4 +55,4 @@ segmentator.sh -s magento -e '@gmail.com|@hotmail.com' -d 7 -l 1000 -f dump.mage
 About
 -----
 
-See: http://engineering.baublebar.com/magento-data-segmentator
+See: http://engineering.baublebar.com/post/89371532520/magento-data-segmentator
