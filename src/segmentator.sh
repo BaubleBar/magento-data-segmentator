@@ -55,7 +55,8 @@ if [ -z "${IS_RAW}" ]; then
     IS_RAW=0
 fi
 
-DUMP_CMD="mysqldump $SCHEMA --single-transaction --opt --skip-lock-tables --skip-comments"
+
+DUMP_CMD="mysqldump $SCHEMA --single-transaction"
 
 ###################
 # General Data
@@ -82,9 +83,19 @@ customer_entity_decimal
 customer_entity_int
 customer_entity_text
 customer_entity_varchar
+cms_block
+cms_block_store
+cms_page
+cms_page_store
 dataflow_batch_export
 dataflow_batch_import
 downloadable_link_purchased
+enterprise_cms_hierarchy_lock
+enterprise_cms_hierarchy_metadata
+enterprise_cms_hierarchy_node
+enterprise_cms_increment
+enterprise_cms_page_revision
+enterprise_cms_page_version
 enterprise_customerbalance
 enterprise_customersegment_customer
 enterprise_customer_sales_flat_quote
@@ -93,6 +104,8 @@ enterprise_giftregistry_entity
 enterprise_logging_event
 enterprise_logging_event_changes
 enterprise_reminder_rule_log
+enterprise_customer_sales_flat_order
+enterprise_customer_sales_flat_order_address
 enterprise_sales_creditmemo_grid_archive
 enterprise_sales_invoice_grid_archive
 enterprise_sales_order_grid_archive
@@ -116,6 +129,7 @@ newsletter_subscriber
 gift_message
 oauth_token
 persistent_session
+permission_block
 poll_vote
 product_alert_price
 product_alert_stock
@@ -161,7 +175,8 @@ sendfriend_log
 tax_order_aggregated_created
 tax_order_aggregated_updated
 tag_relation
-wishlist"
+wishlist
+"
 
 # Create DB dump
 IGN_SCH=
@@ -293,11 +308,12 @@ done
 CUSTOMER_ORDER_IDS=${CUSTOMER_ORDER_IDS:1:${#CUSTOMER_ORDER_IDS}}
 
 CUSTOMER_ORDER_METADATA_TABLES="
-enterprise_sales_order_grid_archive
 sales_flat_order
 sales_flat_order_grid
 sales_flat_shipment_grid
 sales_flat_shipment_track
+enterprise_sales_order_grid_archive
+enterprise_customer_sales_flat_order
 "
 
 for TABLE in $CUSTOMER_ORDER_METADATA_TABLES; do
@@ -318,7 +334,6 @@ enterprise_sales_shipment_grid_archive
 
 for TABLE in $CUSTOMER_ORDER_METADATA_TABLES; do
    CMD="$CMD nice -10 $DUMP_CMD --no-create-info --tables $TABLE --where='order_id IN ($CUSTOMER_ORDER_IDS)';"
-   eval "$DUMP"
 done
 
 CUSTOMER_ORDER_METADATA_TABLES="
@@ -388,6 +403,7 @@ CUSTOMER_ORDER_QUOTE_ADDRESS_IDS=${CUSTOMER_ORDER_QUOTE_ADDRESS_IDS:1:${#CUSTOME
 
 CMD="$CMD nice -10 $DUMP_CMD --no-create-info --tables sales_flat_quote_address_item --where='quote_address_id IN ($CUSTOMER_ORDER_QUOTE_ADDRESS_IDS)';"
 CMD="$CMD nice -10 $DUMP_CMD --no-create-info --tables sales_flat_quote_shipping_rate --where='address_id IN ($CUSTOMER_ORDER_QUOTE_ADDRESS_IDS)';"
+CMD="$CMD nice -10 $DUMP_CMD --no-create-info --tables enterprise_customer_sales_flat_order_address --where='entity_id IN ($CUSTOMER_ORDER_QUOTE_ADDRESS_IDS)';"
 
 ###################
 # Customer Order Quote Item
@@ -457,4 +473,3 @@ eval "$CMD"
 
 echo "Done!"
 exit 0
-

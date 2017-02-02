@@ -1,7 +1,7 @@
-Magento Data Segmentator  (v1.0.1)
+Magento Data Segmentator  (v1.0.2)
 ==========================
 
-Magento data segmentator allows you to extract tailored sets of data from your Magento database.
+Magento data segmentation allows you to extract tailored sets of data from your Magento database.
 
 Currently script supports data retrieval via customer email patterns and/or back log of (x) days. 
 
@@ -19,14 +19,12 @@ See: http://dev.mysql.com/doc/refman/5.1/en/option-files.html
 Usage
 -----
 
-```bash
 -s name of your Magento database schema
 -e match customers email address, ex: -e '(generic.com|specific.email@domain.com)'
 -d retrieve all customers registered within specified number of days
 -l limit overall result to this number
 -f name of generated data dump
 -r raw mode, the script will output a non-compressed .sql dump
-```
 
 Examples
 -----
@@ -34,13 +32,13 @@ Examples
 Generate a database dump with customers that have @gmail.com email address:
 
 ```bash
-segmentator.sh -s magento -e '@gmail.com' -f dump.magento.sql.gz
+segmentator.sh -s magento -e '@gmail.com' -f dump.magento.sql
 ```
 
 Now let's get a dump with customers that registered within last 7 days:
 
 ```bash
-segmentator.sh -s magento -d 7 -f dump.magento.sql.gz
+segmentator.sh -s magento -d 7 -f dump.magento.sql
 ```
 
 Get all customers that either have @gmail.com or @hotmail.com as an email address. 
@@ -49,10 +47,10 @@ On top of that we will retrieve all of the customers that registered within past
 to 1000 customers:
 
 ```bash
-segmentator.sh -s magento -e '@gmail.com|@hotmail.com' -d 7 -l 1000 -f dump.magento.sql.gz
+segmentator.sh -s magento -e '@gmail.com|@hotmail.com' -d 7 -l 1000 -f dump.magento.sql
 ```
 
 About
 -----
 
-See: http://engineering.baublebar.com/post/89371532520/magento-data-segmentator
+See: http://tech.baublebar.com/magento-data-segmentator
